@@ -1,23 +1,77 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
+import Link from "next/link";
 import { heroImages } from "@/lib/data";
 import { motion, stagger, useAnimate } from "motion/react";
-
 import Floating, { FloatingElement } from "@/components/parallax-floating";
-import { Button } from "../ui/button";
-import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
-const Preview = () => {
+const FLOATING_IMAGE_CONFIG = [
+  {
+    index: 0,
+    depth: 0.5,
+    position: "top-[18%] left-[15%]",
+    size: "w-16 h-16 md:w-24 md:h-24",
+  },
+  {
+    index: 1,
+    depth: 1,
+    position: "top-[10%] left-[32%]",
+    size: "w-20 h-20 md:w-28 md:h-28",
+  },
+  {
+    index: 2,
+    depth: 2,
+    position: "top-[2%] left-[53%]",
+    size: "w-28 h-40 md:w-40 md:h-52",
+  },
+  {
+    index: 3,
+    depth: 1,
+    position: "top-[0%] left-[83%]",
+    size: "w-24 h-24 md:w-32 md:h-32",
+  },
+  {
+    index: 4,
+    depth: 1,
+    position: "top-[40%] left-[80%]",
+    size: "w-28 h-28 md:w-36 md:h-36",
+  },
+  {
+    index: 7,
+    depth: 2,
+    position: "top-[70%] left-[77%]",
+    size: "w-28 h-28 md:w-36 md:h-48",
+  },
+  {
+    index: 5,
+    depth: 4,
+    position: "top-[73%] left-[20%]",
+    size: "w-40 md:w-52 h-full",
+  },
+  {
+    index: 6,
+    depth: 1,
+    position: "top-[80%] left-[45%]",
+    size: "w-24 h-24 md:w-32 md:h-32",
+  },
+] as const;
+
+export default function HomePage() {
   const [scope, animate] = useAnimate();
 
-  useEffect(() => {
+  const animateImages = useCallback(() => {
     animate(
       "img",
       { opacity: [0, 1] },
       { duration: 0.5, delay: stagger(0.15) }
     );
-  }, []);
+  }, [animate]);
+
+  useEffect(() => {
+    animateImages();
+  }, [animateImages]);
 
   return (
     <div
@@ -36,73 +90,26 @@ const Preview = () => {
         <p className="text-white text-sm md:text-base max-w-md">
           Get your recruitment process Started quickly.
         </p>
-        <Link href="/onboarding">
+        <Link href="/brand-inputs">
           <Button variant="secondary">Get Started</Button>
         </Link>
       </motion.div>
 
       <Floating sensitivity={-1} className="overflow-hidden">
-        <FloatingElement depth={0.5} className="top-[18%] left-[15%]">
-          <motion.img
-            initial={{ opacity: 0 }}
-            src={heroImages[0].url}
-            className="w-16 h-16 md:w-24 md:h-24 object-cover hover:scale-105 duration-200 cursor-pointer transition-transform"
-          />
-        </FloatingElement>
-        <FloatingElement depth={1} className="top-[10%] left-[32%]">
-          <motion.img
-            initial={{ opacity: 0 }}
-            src={heroImages[1].url}
-            className="w-20 h-20 md:w-28 md:h-28 object-cover hover:scale-105 duration-200 cursor-pointer transition-transform"
-          />
-        </FloatingElement>
-        <FloatingElement depth={2} className="top-[2%] left-[53%]">
-          <motion.img
-            initial={{ opacity: 0 }}
-            src={heroImages[2].url}
-            className="w-28 h-40 md:w-40 md:h-52 object-cover hover:scale-105 duration-200 cursor-pointer transition-transform"
-          />
-        </FloatingElement>
-        <FloatingElement depth={1} className="top-[0%] left-[83%]">
-          <motion.img
-            initial={{ opacity: 0 }}
-            src={heroImages[3].url}
-            className="w-24 h-24 md:w-32 md:h-32 object-cover hover:scale-105 duration-200 cursor-pointer transition-transform"
-          />
-        </FloatingElement>
-
-        <FloatingElement depth={1} className="top-[40%] left-[80%]">
-          <motion.img
-            initial={{ opacity: 0 }}
-            src={heroImages[4].url}
-            className="w-28 h-28 md:w-36 md:h-36 object-cover hover:scale-105 duration-200 cursor-pointer transition-transform"
-          />
-        </FloatingElement>
-        <FloatingElement depth={2} className="top-[70%] left-[77%]">
-          <motion.img
-            initial={{ opacity: 0 }}
-            src={heroImages[7].url}
-            className="w-28 h-28 md:w-36 md:h-48 object-cover hover:scale-105 duration-200 cursor-pointer transition-transform"
-          />
-        </FloatingElement>
-
-        <FloatingElement depth={4} className="top-[73%] left-[20%]">
-          <motion.img
-            initial={{ opacity: 0 }}
-            src={heroImages[5].url}
-            className="w-40 md:w-52 h-full object-cover hover:scale-105 duration-200 cursor-pointer transition-transform"
-          />
-        </FloatingElement>
-        <FloatingElement depth={1} className="top-[80%] left-[45%]">
-          <motion.img
-            initial={{ opacity: 0 }}
-            src={heroImages[6].url}
-            className="w-24 h-24 md:w-32 md:h-32 object-cover hover:scale-105 duration-200 cursor-pointer transition-transform"
-          />
-        </FloatingElement>
+        {FLOATING_IMAGE_CONFIG.map((config) => (
+          <FloatingElement
+            key={config.index}
+            depth={config.depth}
+            className={config.position}
+          >
+            <motion.img
+              initial={{ opacity: 0 }}
+              src={heroImages[config.index].url}
+              className={`${config.size} object-cover hover:scale-105 duration-200 cursor-pointer transition-transform`}
+            />
+          </FloatingElement>
+        ))}
       </Floating>
     </div>
   );
-};
-
-export default Preview;
+}

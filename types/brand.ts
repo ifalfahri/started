@@ -10,12 +10,13 @@ export interface BrandInputs {
 }
 
 export interface GeneratedAssets {
-  logo?: string; // Base64 or URL
-  letterhead?: string; // HTML content
-  emailSignature?: string; // HTML content
-  linkedInBanner?: string; // Base64 or URL
-  brandSheet?: string; // HTML content
-  website?: string; // HTML content
+  logo?: string;
+  logoDescription?: string;
+  letterhead?: string;
+  emailSignature?: string;
+  linkedInBanner?: string;
+  brandSheet?: string;
+  website?: string;
 }
 
 export interface OnboardingState {

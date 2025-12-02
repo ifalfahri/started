@@ -14,8 +14,8 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Started",
-  description: "Get your recruitment process Started quickly.",
+  title: "Started - AI Recruiter Branding Generator",
+  description: "AI-guided recruiter onboarding platform that helps new recruiters create their own recruitment company branding in minutes.",
 };
 
 export default function RootLayout({

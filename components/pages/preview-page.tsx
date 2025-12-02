@@ -230,17 +230,17 @@ export function PreviewPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-sm">
             <div>
               <span className="text-muted-foreground">Company:</span>{" "}
-              <strong className="break-words">{brandInputs.companyName}</strong>
+              <strong className="wrap-break-word">{brandInputs.companyName}</strong>
             </div>
             {brandInputs.tagline && (
               <div>
                 <span className="text-muted-foreground">Tagline:</span>{" "}
-                <strong className="break-words">{brandInputs.tagline}</strong>
+                <strong className="wrap-break-word">{brandInputs.tagline}</strong>
               </div>
             )}
             <div>
               <span className="text-muted-foreground">Style:</span>{" "}
-              <strong className="break-words">{brandInputs.brandStyle}</strong>
+              <strong className="wrap-break-word">{brandInputs.brandStyle}</strong>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-muted-foreground">Colors:</span>
